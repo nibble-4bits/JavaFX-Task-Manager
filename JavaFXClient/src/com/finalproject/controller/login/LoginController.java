@@ -20,7 +20,7 @@ public class LoginController {
 
         try {
             // Depending on the user type, it loads either the AdminIndex or the EmployeeIndex
-            mainController.changePrimaryStageScene("AdminRoot");
+            mainController.changePrimaryStageScene("AssignedTasks");
         }
         catch (Exception ex) {
             ex.printStackTrace();
