@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finalproject.controller.admin.EmployeesTabController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="486.0" minHeight="10.0" prefHeight="420.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="244.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="244.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <TableView fx:id="tblEmployees" prefHeight="250.0" prefWidth="538.0" GridPane.columnSpan="2147483647">
+         <columns>
+            <TableColumn fx:id="colId" prefWidth="75.0" text="Id" />
+            <TableColumn fx:id="colDepartment" prefWidth="75.0" text="Department" />
+            <TableColumn fx:id="colName" prefWidth="75.0" text="Name" />
+            <TableColumn fx:id="colLastName" prefWidth="75.0" text="Last Name" />
+            <TableColumn fx:id="colEmail" prefWidth="75.0" text="Email" />
+            <TableColumn fx:id="colDOB" prefWidth="75.0" text="DOB" />
+            <TableColumn fx:id="colHireDate" prefWidth="75.0" text="Hire Date" />
+            <TableColumn fx:id="colPassword" prefWidth="75.0" text="Password" />
+            <TableColumn fx:id="colSecurityQuestion" prefWidth="75.0" text="Security Question" />
+            <TableColumn fx:id="colSecurityAnswer" prefWidth="75.0" text="Security Answer" />
+         </columns>
+      </TableView>
+      <ToolBar fx:id="toolBarFilter" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" visible="false" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+         <items>
+            <TextField fx:id="txtFilterTerm" nodeOrientation="LEFT_TO_RIGHT" promptText="Search term..." />
+            <ChoiceBox fx:id="choiceFilterCriteria" nodeOrientation="LEFT_TO_RIGHT" prefWidth="150.0" />
+            <Label text="Filter by:">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+         </items>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </ToolBar>
+      <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="45.0" prefWidth="700.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+         <items>
+            <Button layoutX="72.0" layoutY="12.0" mnemonicParsing="false" onAction="#onClickSeePerformance" text="See Performance...">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button layoutX="153.0" layoutY="12.0" mnemonicParsing="false" onAction="#onClickAssignTask" text="Assign Task...">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button layoutX="10.0" layoutY="12.0" mnemonicParsing="false" onAction="#onClickModify" text="Modify...">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onClickAdd" text="Add...">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <CheckBox fx:id="chkFilter" mnemonicParsing="false" onAction="#onCheckFilter" text="Filter">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </CheckBox>
+         </items>
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </ToolBar>
+   </children>
+</GridPane>

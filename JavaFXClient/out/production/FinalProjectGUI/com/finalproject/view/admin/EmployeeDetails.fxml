@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.finalproject.controller.admin.EmployeeDetailsController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.0" minWidth="10.0" prefWidth="160.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="438.0" minWidth="10.0" prefWidth="340.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="129.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="203.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="135.0" minHeight="4.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="130.0" minHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="135.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="198.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="160.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="135.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="135.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label text="Department" GridPane.halignment="CENTER">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label text="Name" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label text="Last name" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label text="Email" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label text="Date of birth" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label text="Hire date" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label text="Password" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label text="Security Question" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label text="Security Answer" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="9">
+        <items>
+          <Button fx:id="btnAddOrUpdate" mnemonicParsing="false" onAction="#onClickAddOrUpdate" text="Add/Update">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#onClickCancel" text="Cancel">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+        </items>
+         <padding>
+            <Insets left="15.0" />
+         </padding>
+      </ToolBar>
+      <TextField fx:id="txtName" layoutX="172.0" layoutY="15.0" prefHeight="30.0" prefWidth="300.0" promptText="Please fill out this field" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets right="20.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField fx:id="txtLastName" layoutX="172.0" layoutY="55.0" prefHeight="30.0" prefWidth="300.0" promptText="Please fill out this field" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+         <GridPane.margin>
+            <Insets right="20.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField fx:id="txtEmail" layoutX="172.0" layoutY="95.0" prefHeight="30.0" prefWidth="300.0" promptText="Please fill out this field" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets right="20.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField fx:id="txtSecurityQuestion" layoutX="172.0" layoutY="255.0" prefHeight="30.0" prefWidth="300.0" promptText="Please fill out this field" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="7">
+         <GridPane.margin>
+            <Insets right="20.0" />
+         </GridPane.margin>
+      </TextField>
+      <TextField fx:id="txtSecurityAnswer" layoutX="172.0" layoutY="295.0" prefHeight="30.0" prefWidth="300.0" promptText="Please fill out this field" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="8">
+         <GridPane.margin>
+            <Insets right="20.0" />
+         </GridPane.margin>
+      </TextField>
+      <ComboBox fx:id="cmbDepartment" prefHeight="30.0" prefWidth="320.0" promptText="Please select an option" GridPane.columnIndex="1" />
+      <DatePicker fx:id="dateBirth" editable="false" prefHeight="30.0" prefWidth="320.0" promptText="Please fill out this field" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <DatePicker fx:id="dateHire" editable="false" prefHeight="30.0" prefWidth="320.0" promptText="Please fill out this field" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <PasswordField fx:id="passField" prefHeight="30.0" prefWidth="300.0" promptText="Please fill out this field" GridPane.columnIndex="1" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets right="20.0" />
+         </GridPane.margin>
+      </PasswordField>
+   </children>
+</GridPane>
