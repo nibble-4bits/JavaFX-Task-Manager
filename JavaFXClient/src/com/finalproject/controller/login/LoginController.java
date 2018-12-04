@@ -1,11 +1,15 @@
 package com.finalproject.controller.login;
 
 import com.finalproject.MainController;
+import com.finalproject.api.login.LoginAPI;
 import com.finalproject.factory.Factory;
+import com.finalproject.model.User;
+import com.finalproject.util.GUIUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -19,8 +23,28 @@ public class LoginController {
         MainController mainController = (MainController) Factory.getInstance("MainController");
 
         try {
-            // Depending on the user type, it loads either the AdminIndex or the EmployeeIndex
-            mainController.changePrimaryStageScene("AssignedTasks");
+            User tmp = new User();
+            tmp.setEmail(txtEmail.getText());
+            tmp.setPassword(pwdPassword.getText());
+
+            User authUser = LoginAPI.authenticate(tmp);
+
+            if (authUser.getEmail() != null) {
+                if (authUser.getEmail().equals("nonexistent")) {
+                    GUIUtils.showAlert(Alert.AlertType.ERROR, "An error has occurred", "User not found", "There is no user that uses the email you provided");
+                }
+                else if (authUser.getEmail().equals("passmismatch")) {
+                    GUIUtils.showAlert(Alert.AlertType.ERROR, "An error has occurred", "Password mismatch", "The password you provided does not match the saved password");
+                }
+            }
+            else { // Depending on the user type, it loads either the AdminIndex or the EmployeeIndex
+                if (authUser.getType() == User.ADMIN) {
+                    mainController.changePrimaryStageScene("AdminRoot");
+                }
+                else if (authUser.getType() == User.EMPLOYEE) {
+                    mainController.changePrimaryStageScene("AssignedTasks");
+                }
+            }
         }
         catch (Exception ex) {
             ex.printStackTrace();

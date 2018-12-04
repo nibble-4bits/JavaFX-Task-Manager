@@ -8,161 +8,161 @@ public class User {
     public static final int ADMIN = 0;
     public static final int EMPLOYEE = 1;
 
-    private SimpleIntegerProperty Id;
-    private SimpleStringProperty Department;
-    private SimpleStringProperty Email;
-    private SimpleStringProperty Name;
-    private SimpleStringProperty LastName;
-    private SimpleObjectProperty<LocalDate> DateOfBirth;
-    private SimpleObjectProperty<LocalDate> HireDate;
-    private SimpleStringProperty Password;
-    private SimpleStringProperty SecurityQuestion;
-    private SimpleStringProperty SecurityAnswer;
-    private SimpleIntegerProperty Type;
+    private SimpleIntegerProperty id;
+    private SimpleStringProperty department;
+    private SimpleStringProperty email;
+    private SimpleStringProperty name;
+    private SimpleStringProperty lastName;
+    private SimpleObjectProperty<LocalDate> dateOfBirth;
+    private SimpleObjectProperty<LocalDate> hireDate;
+    private SimpleStringProperty password;
+    private SimpleStringProperty securityQuestion;
+    private SimpleStringProperty securityAnswer;
+    private SimpleIntegerProperty type;
 
     public User() {
-        this.Id = new SimpleIntegerProperty();
-        this.Department = new SimpleStringProperty();
-        this.Email = new SimpleStringProperty();
-        this.Name = new SimpleStringProperty();
-        this.LastName = new SimpleStringProperty();
-        this.DateOfBirth = new SimpleObjectProperty<>();
-        this.HireDate = new SimpleObjectProperty<>();
-        this.Password = new SimpleStringProperty();
-        this.SecurityQuestion = new SimpleStringProperty();
-        this.SecurityAnswer = new SimpleStringProperty();
-        this.Type = new SimpleIntegerProperty();
+        this.id = new SimpleIntegerProperty();
+        this.department = new SimpleStringProperty();
+        this.email = new SimpleStringProperty();
+        this.name = new SimpleStringProperty();
+        this.lastName = new SimpleStringProperty();
+        this.dateOfBirth = new SimpleObjectProperty<>();
+        this.hireDate = new SimpleObjectProperty<>();
+        this.password = new SimpleStringProperty();
+        this.securityQuestion = new SimpleStringProperty();
+        this.securityAnswer = new SimpleStringProperty();
+        this.type = new SimpleIntegerProperty();
     }
 
     public int getId() {
-        return Id.get();
+        return id.get();
     }
 
     public IntegerProperty idProperty() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        this.Id.set(id);
+        this.id.set(id);
     }
 
     public String getDepartment() {
-        return Department.get();
+        return department.get();
     }
 
     public StringProperty departmentProperty() {
-        return Department;
+        return department;
     }
 
     public void setDepartment(String department) {
-        this.Department.set(department);
+        this.department.set(department);
     }
 
     public String getEmail() {
-        return Email.get();
+        return email.get();
     }
 
     public StringProperty emailProperty() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        this.Email.set(email);
+        this.email.set(email);
     }
 
     public String getName() {
-        return Name.get();
+        return name.get();
     }
 
     public StringProperty nameProperty() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        this.Name.set(name);
+        this.name.set(name);
     }
 
     public String getLastName() {
-        return LastName.get();
+        return lastName.get();
     }
 
     public StringProperty lastNameProperty() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        this.LastName.set(lastName);
+        this.lastName.set(lastName);
     }
 
     public LocalDate getDateOfBirth() {
-        return DateOfBirth.get();
+        return dateOfBirth.get();
     }
 
     public ObjectProperty<LocalDate> dateOfBirthProperty() {
-        return DateOfBirth;
+        return dateOfBirth;
     }
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.DateOfBirth.set(dateOfBirth);
+        this.dateOfBirth.set(dateOfBirth);
     }
 
     public LocalDate getHireDate() {
-        return HireDate.get();
+        return hireDate.get();
     }
 
     public ObjectProperty<LocalDate> hireDateProperty() {
-        return HireDate;
+        return hireDate;
     }
 
     public void setHireDate(LocalDate hireDate) {
-        this.HireDate.set(hireDate);
+        this.hireDate.set(hireDate);
     }
 
     public String getPassword() {
-        return Password.get();
+        return password.get();
     }
 
     public StringProperty passwordProperty() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        this.Password.set(password);
+        this.password.set(password);
     }
 
     public String getSecurityQuestion() {
-        return SecurityQuestion.get();
+        return securityQuestion.get();
     }
 
     public StringProperty securityQuestionProperty() {
-        return SecurityQuestion;
+        return securityQuestion;
     }
 
     public void setSecurityQuestion(String securityQuestion) {
-        this.SecurityQuestion.set(securityQuestion);
+        this.securityQuestion.set(securityQuestion);
     }
 
     public String getSecurityAnswer() {
-        return SecurityAnswer.get();
+        return securityAnswer.get();
     }
 
     public StringProperty securityAnswerProperty() {
-        return SecurityAnswer;
+        return securityAnswer;
     }
 
     public void setSecurityAnswer(String securityAnswer) {
-        this.SecurityAnswer.set(securityAnswer);
+        this.securityAnswer.set(securityAnswer);
     }
 
     public int getType() {
-        return Type.get();
+        return type.get();
     }
 
     public IntegerProperty typeProperty() {
-        return Type;
+        return type;
     }
 
     public void setType(int type) {
-        this.Type.set(type);
+        this.type.set(type);
     }
 }
