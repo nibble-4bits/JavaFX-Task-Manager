@@ -7,7 +7,6 @@ public class Task {
     public static final int FINISHED = 2;
 
     private int Id;
-    private User User;
     private String Title;
     private String Description;
     private int Status;
@@ -21,14 +20,6 @@ public class Task {
 
     public void setId(int id) {
         Id = id;
-    }
-
-    public com.finalproject.API.model.User getUser() {
-        return User;
-    }
-
-    public void setUser(com.finalproject.API.model.User user) {
-        User = user;
     }
 
     public String getTitle() {

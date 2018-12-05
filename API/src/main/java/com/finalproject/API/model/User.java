@@ -1,5 +1,6 @@
 package com.finalproject.API.model;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class User {
@@ -8,7 +9,7 @@ public class User {
     public static final int EMPLOYEE = 1;
 
     private int id;
-    private Department department;
+    private String department;
     private String email;
     private String name;
     private String lastName;
@@ -30,11 +31,11 @@ public class User {
         this.id = id;
     }
 
-    public Department getDepartment() {
+    public String getDepartment() {
         return department;
     }
 
-    public void setDepartment(Department department) {
+    public void setDepartment(String department) {
         this.department = department;
     }
 
@@ -108,5 +109,10 @@ public class User {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.id == ((User) obj).id || this.email.equals(((User) obj).email);
     }
 }
