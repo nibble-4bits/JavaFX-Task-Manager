@@ -214,10 +214,8 @@ public class AdminService {
             stmt.setInt(1, userId);
             rs = stmt.executeQuery();
 
-            int i = 0;
             while (rs.next()) {
-                count[i] = rs.getInt("Count");
-                i++;
+                count[rs.getInt("Status")] = rs.getInt("Count");
             }
 
             rs.close();

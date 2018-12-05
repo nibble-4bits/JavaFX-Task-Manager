@@ -22,6 +22,16 @@ public class LoginController {
         return new ResponseEntity<>(loginService.deauthenticateUser(user), HttpStatus.OK);
     }
 
+    @RequestMapping(value="/login/passRecovery", method = RequestMethod.POST)
+    public ResponseEntity<User> getSecurityFields(@RequestBody User user) {
+        return new ResponseEntity<>(loginService.getSecurityFields(user), HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/login/passRecovery/send/{email}", method = RequestMethod.GET)
+    public ResponseEntity<Integer> sendPasswordRecoveryEmail(@PathVariable("email") String email) {
+        return new ResponseEntity<>(loginService.sendPasswordRecoveryEmail(email), HttpStatus.OK);
+    }
+
     @RequestMapping(value="/login/state/{email}", method = RequestMethod.GET)
     public ResponseEntity<Boolean> checkSessionState(@PathVariable("email") String email) {
         return new ResponseEntity<>(loginService.checkSessionState(email), HttpStatus.OK);

@@ -2,11 +2,10 @@ package com.finalproject.API.service.login;
 
 import com.finalproject.API.datautil.UConnection;
 import com.finalproject.API.model.User;
-import com.finalproject.API.util.Email;
+import com.finalproject.API.util.MailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.jws.soap.SOAPBinding;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -20,16 +19,9 @@ public class LoginService {
 
     private static List<User> loggedInUsers = new ArrayList<>();
 
-    @Autowired private Email email;
+    @Autowired private MailSender mailSender;
 
     public User authenticateUser(User user) {
-        if (loggedInUsers.contains(user)) { // if the user is already logged in
-            User alreadyLogged = new User();
-            alreadyLogged.setEmail("alreadylogged");
-            sendToken(user.getEmail(), user);
-            return alreadyLogged;
-        }
-
         User authUser = new User();
         Connection conn;
         ResultSet rs;
@@ -55,9 +47,17 @@ public class LoginService {
                     }
                 }
                 else {
-                    authUser.setId(rs.getInt("IdUser"));
-                    authUser.setEmail(rs.getString("Email"));
-                    authUser.setType(rs.getInt("Type"));
+                    if (loggedInUsers.contains(user)) { // if the user is already logged in
+                        User alreadyLogged = new User();
+                        alreadyLogged.setEmail("alreadylogged");
+                        sendToken(user.getEmail(), user);
+                        return alreadyLogged;
+                    }
+                    else {
+                        authUser.setId(rs.getInt("IdUser"));
+                        authUser.setEmail(rs.getString("Email"));
+                        authUser.setType(rs.getInt("Type"));
+                    }
                 }
             }
 
@@ -79,6 +79,69 @@ public class LoginService {
 
     public boolean deauthenticateUser(User user) {
         return loggedInUsers.remove(user);
+    }
+
+    public User getSecurityFields(User user) {
+        User tmp = new User();
+        Connection conn;
+        ResultSet rs;
+
+        try {
+            conn = UConnection.getConnection();
+            String query = "{CALL getSecurityFields(?)}";
+            CallableStatement stmt = conn.prepareCall(query);
+            stmt.setString(1, user.getEmail());
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                tmp.setSecurityQuestion(rs.getString("SecurityQuestion"));
+                tmp.setSecurityAnswer(rs.getString("SecurityAnswer"));
+            }
+
+            rs.close();
+            stmt.close();
+
+            return tmp;
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public int sendPasswordRecoveryEmail(String email) {
+        String password = "";
+        Connection conn;
+        ResultSet rs;
+
+        try {
+            conn = UConnection.getConnection();
+            String query = "{CALL getPasswordByEmail(?)}";
+            CallableStatement stmt = conn.prepareCall(query);
+            stmt.setString(1, email);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                password = rs.getString("Password");
+            }
+
+            rs.close();
+            stmt.close();
+
+            mailSender.sendMail(email, "Password Recovery", "Your password is: " + password);
+            return 0;
+        }
+        catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return 1;
     }
 
     public boolean checkSessionState(String email) {
@@ -126,7 +189,7 @@ public class LoginService {
 
     private void sendToken(String to, User user) {
         String token = generateToken();
-        email.sendMail(to, "Task manager app token", token);
+        mailSender.sendMail(to, "Task manager app token", token);
         saveToken(token, user.getEmail());
     }
 
