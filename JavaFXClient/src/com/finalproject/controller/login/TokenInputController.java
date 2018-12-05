@@ -4,6 +4,7 @@ import com.finalproject.MainController;
 import com.finalproject.api.login.LoginAPI;
 import com.finalproject.factory.Factory;
 import com.finalproject.util.GUIUtils;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -25,5 +26,20 @@ public class TokenInputController {
         else {
             GUIUtils.showAlert(Alert.AlertType.WARNING, "Warning", "Token expired", "This token has expired. You must try to log in again to request a new token");
         }
+    }
+
+    @FXML
+    private void initialize() {
+        addLimitCharactersEvent();
+    }
+
+    private void addLimitCharactersEvent() {
+        txtToken.textProperty().addListener((obs, oldText, newText) -> {
+            if (newText.length() > 5) {
+                Platform.runLater(() -> {
+                    txtToken.setText(newText.substring(0, 5));
+                });
+            }
+        });
     }
 }

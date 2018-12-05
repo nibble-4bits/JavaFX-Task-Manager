@@ -17,6 +17,14 @@ public class LoginController {
 
     @FXML
     private void onClickLogin() {
+        if (txtEmail.getText().trim().isEmpty() || pwdPassword.getText().isEmpty()) {
+            GUIUtils.showAlert(Alert.AlertType.WARNING,
+                    "Warning",
+                    "Fill out the fields",
+                    "Please make sure to fill out all the fields in order to continue.");
+            return;
+        }
+
         MainController mainController = (MainController) Factory.getInstance("MainController");
 
         try {
@@ -30,7 +38,8 @@ public class LoginController {
                 GUIUtils.showAlert(Alert.AlertType.WARNING,
                         "Session active",
                         "Another user has already logged in",
-                        "An email has been sent to the provided email address, you have 1 minute to enter it to be able to log in");
+                        "An email has been sent to the provided email address, " +
+                                "you have 1 minute to enter it to be able to log in.");
 
                 try {
                     mainController.showTokenInput();
@@ -43,15 +52,16 @@ public class LoginController {
                 GUIUtils.showAlert(Alert.AlertType.ERROR,
                         "An error has occurred",
                         "User not found",
-                        "There is no user that uses the email you provided");
+                        "There is no user that uses the email you provided.");
             }
             else if (authUser.getEmail().equals("passmismatch")) {
                 GUIUtils.showAlert(Alert.AlertType.ERROR,
                         "An error has occurred",
                         "Password mismatch",
-                        "The password you provided does not match the saved password");
+                        "The password you provided does not match the saved password.");
             }
-            else { // Depending on the user type, it loads either the AdminIndex or the EmployeeIndex
+            else {
+                // Depending on the user type, it loads either the AdminIndex or the EmployeeIndex
                 MainController.loggedIn = true;
                 if (authUser.getType() == User.ADMIN) {
                     mainController.changePrimaryStageScene("AdminRoot");
@@ -68,7 +78,16 @@ public class LoginController {
 
     @FXML
     private void onClickForgotPassword() {
+        if (txtEmail.getText().trim().isEmpty()) {
+            GUIUtils.showAlert(Alert.AlertType.WARNING,
+                    "Warning",
+                    "Fill out the email field",
+                    "Please be sure to fill out the email field in order to continue.");
+            return;
+        }
+
         MainController mainController = (MainController) Factory.getInstance("MainController");
+        ForgotPasswordController.email = txtEmail.getText();
 
         try {
             mainController.showForgotPassword();

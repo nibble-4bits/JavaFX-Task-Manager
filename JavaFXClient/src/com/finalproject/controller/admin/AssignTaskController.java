@@ -22,11 +22,22 @@ public class AssignTaskController {
 
     @FXML
     private void onClickAssign(ActionEvent event) {
+        if (txtTaskTitle.getText().trim().isEmpty() || txtAreaTaskDescription.getText().trim().isEmpty()) {
+            GUIUtils.showAlert(Alert.AlertType.ERROR,
+                    "Error",
+                    "Fill out all fields",
+                    "You must fill out all the fields before proceeding.");
+            return;
+        }
+
         Task task = new Task();
         task.setTitle(txtTaskTitle.getText());
         task.setDescription(txtAreaTaskDescription.getText());
         AdminAPI.assignTask(employee.getId(), task);
-        GUIUtils.showAlert(Alert.AlertType.INFORMATION, "Success!", "Task successfully sent", "The task has been sent to this employee!");
+        GUIUtils.showAlert(Alert.AlertType.INFORMATION,
+                "Success!",
+                "Task successfully sent",
+                "The task has been sent to this employee!");
     }
 
     @FXML

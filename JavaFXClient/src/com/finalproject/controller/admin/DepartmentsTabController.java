@@ -23,11 +23,22 @@ public class DepartmentsTabController {
 
     @FXML
     private void onClickAddDepartment(ActionEvent event) {
+        if (txtDepartmentName.getText().trim().isEmpty()) {
+            GUIUtils.showAlert(Alert.AlertType.ERROR,
+                    "Error",
+                    "Fill out all fields",
+                    "Fill out the department name field before proceeding.");
+            return;
+        }
+
         Department department = new Department();
         department.setName(txtDepartmentName.getText());
         AdminAPI.addDepartment(department);
 
-        GUIUtils.showAlert(Alert.AlertType.INFORMATION, "Success!", "Department saved", "The new department has been saved!");
+        GUIUtils.showAlert(Alert.AlertType.INFORMATION,
+                "Success!",
+                "Department saved",
+                "The new department has been saved!");
         tblDepartments.setItems(loadDepartments());
     }
 

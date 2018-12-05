@@ -12,25 +12,25 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class Main extends Application {
 
+    // Every second we poll the session state
+    private Timeline checkSessionState = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
 
-    Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent event) {
-            if (!LoginAPI.checkSessionState() && MainController.loggedIn) {
-                MainController mainController = (MainController) Factory.getInstance("MainController");
-                try {
-                    mainController.changePrimaryStageScene("Login");
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-                MainController.loggedIn = false;
-                LoginAPI.email = null;
+        // If the session becomes false and the user is logged in we logged them out
+        if (!LoginAPI.checkSessionState() && MainController.loggedIn) {
+            MainController mainController = (MainController) Factory.getInstance("MainController");
+            try {
+                mainController.changePrimaryStageScene("Login");
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
+            MainController.loggedIn = false;
+            LoginAPI.email = null;
         }
     }));
 
@@ -43,6 +43,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource(SceneLoader.getScene("Login")));
         primaryStage.setTitle("Login");
+        primaryStage.getIcons().add(new Image("file:res/app_icon.png"));
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
@@ -55,8 +56,8 @@ public class Main extends Application {
             System.exit(0);
         });
 
-        fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
-        fiveSecondsWonder.play();
+        checkSessionState.setCycleCount(Timeline.INDEFINITE);
+        checkSessionState.play();
     }
 
     public static void main(String[] args) {

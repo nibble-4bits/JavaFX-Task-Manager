@@ -167,4 +167,74 @@ public class LoginAPI {
         }
         return false;
     }
+
+    public static User getSecurityQuestionAndAnswer(User user) {
+        try {
+            String endpoint = baseUrl + "/passRecovery";
+            HttpURLConnection conn = (HttpURLConnection) new URL(endpoint).openConnection();
+            conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("content-Type", "application/json");
+
+            Gson gson = FxGson.coreBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+            String body = gson.toJson(user);
+            OutputStream os = conn.getOutputStream();
+            os.write(body.getBytes());
+            os.flush();
+
+            if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                throw new RuntimeException("Failed: Http error code : " + conn.getResponseCode());
+            }
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            StringBuilder response = new StringBuilder();
+            String output;
+            while ((output = br.readLine()) != null) {
+                response.append(output);
+            }
+            conn.disconnect();
+            br.close();
+
+            User security = gson.fromJson(response.toString(), User.class);
+
+            return security;
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static int sendPasswordRecoveryEmail(String email) {
+        try {
+            String endpoint = baseUrl + "/passRecovery/send/" + email;
+            HttpURLConnection conn = (HttpURLConnection) new URL(endpoint).openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("content-Type", "application/json");
+
+            if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                throw new RuntimeException("Failed: Http error code : " + conn.getResponseCode());
+            }
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+
+            StringBuilder response = new StringBuilder();
+            String output;
+            while ((output = br.readLine()) != null) {
+                response.append(output);
+            }
+            conn.disconnect();
+            br.close();
+
+            return Integer.parseInt(response.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return 1;
+    }
 }

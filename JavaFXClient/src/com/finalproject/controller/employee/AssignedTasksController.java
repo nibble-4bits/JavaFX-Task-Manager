@@ -6,6 +6,8 @@ import com.finalproject.api.login.LoginAPI;
 import com.finalproject.factory.Factory;
 import com.finalproject.model.Task;
 import com.finalproject.util.GUIUtils;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -33,7 +35,6 @@ public class AssignedTasksController {
             }
         }
     };
-
 
     @FXML
     private TableView tblTasks;

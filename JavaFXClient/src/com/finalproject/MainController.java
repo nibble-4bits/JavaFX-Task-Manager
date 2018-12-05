@@ -1,5 +1,7 @@
 package com.finalproject;
 
+import com.finalproject.controller.login.ForgotPasswordController;
+import com.finalproject.controller.login.LoginController;
 import com.finalproject.util.SceneLoader;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -31,7 +33,7 @@ public class MainController {
         stageForgotPass.initModality(Modality.APPLICATION_MODAL);
         stageForgotPass.setResizable(false);
         stageForgotPass.setScene(new Scene(root));
-        stageForgotPass.show();
+        stageForgotPass.showAndWait();
     }
 
     public void closeForgotPassword() {

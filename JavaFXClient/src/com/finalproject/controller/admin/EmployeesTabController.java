@@ -65,7 +65,7 @@ public class EmployeesTabController {
                 GUIUtils.showAlert(Alert.AlertType.WARNING,
                         "Warning",
                         "Select an employee",
-                        "You must select an employee in order to modify their data");
+                        "You must select an employee in order to modify their data.");
             }
         }
         catch (Exception ex) {
@@ -84,7 +84,7 @@ public class EmployeesTabController {
                 GUIUtils.showAlert(Alert.AlertType.WARNING,
                         "Warning",
                         "Select an employee",
-                        "You must select an employee in order to assign them a task");
+                        "You must select an employee in order to assign them a task.");
             }
         }
         catch (Exception ex) {
@@ -103,7 +103,7 @@ public class EmployeesTabController {
                 GUIUtils.showAlert(Alert.AlertType.WARNING,
                         "Warning",
                         "Select an employee",
-                        "You must select an employee in order to check their performance");
+                        "You must select an employee in order to check their performance.");
             }
         }
         catch (Exception ex) {
@@ -177,10 +177,10 @@ public class EmployeesTabController {
                 }
 
                 if (choiceFilterCriteria.getValue().toString().equals("Name")) {
-                    return user.getName().contains(newText);
+                    return user.getName().toLowerCase().contains(newText.trim().toLowerCase());
                 }
                 else if (choiceFilterCriteria.getValue().toString().equals("Email")) {
-                    return user.getEmail().contains(newText);
+                    return user.getEmail().toLowerCase().contains(newText.trim().toLowerCase());
                 }
 
                 return false;
