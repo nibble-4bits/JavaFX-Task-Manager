@@ -26,3 +26,5 @@ proc:BEGIN
     
 END//
 DELIMITER ;
+
+CALL authenticateUser('jacklondon@hotmail.com', 'mypass');

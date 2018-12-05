@@ -37,8 +37,8 @@ CREATE TABLE `proyecto_final_aspectos_tercersemestre`.`task` (
 
 CREATE TABLE `proyecto_final_aspectos_tercersemestre`.`token` (
   `IdToken` INT NOT NULL AUTO_INCREMENT,
-  `IdUser` INT NOT NULL,
+  `Token` CHAR(5) NOT NULL,
+  `Email` VARCHAR(255) NOT NULL,
   `ExpirationDate` TIMESTAMP NOT NULL,
-  FOREIGN KEY (`IdUser`) REFERENCES `user` (`IdUser`),
   PRIMARY KEY (`IdToken`)
 );

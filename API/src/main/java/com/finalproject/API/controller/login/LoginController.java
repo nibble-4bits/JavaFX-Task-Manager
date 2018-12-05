@@ -5,10 +5,7 @@ import com.finalproject.API.service.login.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class LoginController {
@@ -23,5 +20,15 @@ public class LoginController {
     @RequestMapping(value="/login/deauth", method = RequestMethod.POST)
     public ResponseEntity<Boolean> deauthenticate(@RequestBody User user) {
         return new ResponseEntity<>(loginService.deauthenticateUser(user), HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/login/state/{email}", method = RequestMethod.GET)
+    public ResponseEntity<Boolean> checkSessionState(@PathVariable("email") String email) {
+        return new ResponseEntity<>(loginService.checkSessionState(email), HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/login/token/{tkn}", method = RequestMethod.POST)
+    public ResponseEntity<String> checkIfValid(@PathVariable("tkn") String token) {
+        return new ResponseEntity<>(loginService.checkIfTokenValid(token), HttpStatus.OK);
     }
 }

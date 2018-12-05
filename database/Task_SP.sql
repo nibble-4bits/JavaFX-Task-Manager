@@ -35,3 +35,7 @@ BEGIN
 	WHERE `IdTask` = id;
 END//
 DELIMITER ;
+
+DROP PROCEDURE advanceTask;
+CALL getTasksByUserEmail('andiyasha16@gmail.com');
+CALL advanceTask(3);

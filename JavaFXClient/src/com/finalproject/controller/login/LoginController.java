@@ -6,9 +6,6 @@ import com.finalproject.factory.Factory;
 import com.finalproject.model.User;
 import com.finalproject.util.GUIUtils;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -34,6 +31,13 @@ public class LoginController {
                         "Session active",
                         "Another user has already logged in",
                         "An email has been sent to the provided email address, you have 1 minute to enter it to be able to log in");
+
+                try {
+                    mainController.showTokenInput();
+                }
+                catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
             else if (authUser.getEmail().equals("nonexistent")) {
                 GUIUtils.showAlert(Alert.AlertType.ERROR,
@@ -48,6 +52,7 @@ public class LoginController {
                         "The password you provided does not match the saved password");
             }
             else { // Depending on the user type, it loads either the AdminIndex or the EmployeeIndex
+                MainController.loggedIn = true;
                 if (authUser.getType() == User.ADMIN) {
                     mainController.changePrimaryStageScene("AdminRoot");
                 }

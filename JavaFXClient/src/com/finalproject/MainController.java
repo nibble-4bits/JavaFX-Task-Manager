@@ -11,6 +11,8 @@ public class MainController {
 
     private static Stage primaryStage;
     private static Stage stageForgotPass;
+    private static Stage stageTokenInput;
+    public static boolean loggedIn = false;
 
     public static Stage getPrimaryStage() {
         return primaryStage;
@@ -35,6 +37,24 @@ public class MainController {
     public void closeForgotPassword() {
         if (stageForgotPass != null) {
             stageForgotPass.close();
+        }
+    }
+
+    public void showTokenInput() throws Exception {
+        stageTokenInput = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource(SceneLoader.getScene("TokenInput")));
+
+        stageTokenInput.setTitle(SceneLoader.getTitle("TokenInput"));
+        stageTokenInput.initOwner(primaryStage);
+        stageTokenInput.initModality(Modality.APPLICATION_MODAL);
+        stageTokenInput.setResizable(false);
+        stageTokenInput.setScene(new Scene(root));
+        stageTokenInput.show();
+    }
+
+    public void closeTokenInput() {
+        if (stageTokenInput != null) {
+            stageTokenInput.close();
         }
     }
 

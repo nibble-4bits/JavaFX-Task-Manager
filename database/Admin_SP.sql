@@ -68,6 +68,7 @@ BEGIN
 	SELECT `Status`, COUNT(`Status`) AS `Count`
 	FROM `task`
 	WHERE `IdUser` = userid
-	GROUP BY `Status`;
+	GROUP BY `Status`
+    ORDER BY `Status` ASC;
 END//
 DELIMITER ;
