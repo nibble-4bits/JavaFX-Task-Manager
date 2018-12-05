@@ -1,9 +1,13 @@
 package com.finalproject.controller.admin;
 
+import com.finalproject.api.admin.AdminAPI;
 import com.finalproject.factory.Factory;
+import com.finalproject.model.Task;
 import com.finalproject.model.User;
+import com.finalproject.util.GUIUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -18,7 +22,11 @@ public class AssignTaskController {
 
     @FXML
     private void onClickAssign(ActionEvent event) {
-
+        Task task = new Task();
+        task.setTitle(txtTaskTitle.getText());
+        task.setDescription(txtAreaTaskDescription.getText());
+        AdminAPI.assignTask(employee.getId(), task);
+        GUIUtils.showAlert(Alert.AlertType.INFORMATION, "Success!", "Task successfully sent", "The task has been sent to this employee!");
     }
 
     @FXML

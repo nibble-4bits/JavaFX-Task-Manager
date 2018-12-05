@@ -1,8 +1,11 @@
-package com.finalproject.api.login;
+package com.finalproject.api.employee;
 
-import com.finalproject.model.User;
+import com.finalproject.api.login.LoginAPI;
+import com.finalproject.model.Task;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.hildan.fxgson.FxGson;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,28 +13,21 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
-public class LoginAPI {
+public class EmployeeAPI {
 
-    private static String baseUrl = "http://localhost:8080/login";
-    public static String email;
+    private static String baseUrl = "http://localhost:8080/employee";
 
-    public static User authenticate(User user) {
+    public static List<Task> getAllTasks() {
         try {
-            String endpoint = baseUrl;
+            String endpoint = baseUrl + "/" + LoginAPI.email;
             HttpURLConnection conn = (HttpURLConnection) new URL(endpoint).openConnection();
-            conn.setDoOutput(true);
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod("GET");
             conn.setRequestProperty("content-Type", "application/json");
 
-            Gson gson = FxGson.coreBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-            String body = gson.toJson(user);
-            OutputStream os = conn.getOutputStream();
-            os.write(body.getBytes());
-            os.flush();
-
             if (conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                throw new RuntimeException("Failed: Http error code : " + conn.getResponseCode());
+                throw new RuntimeException("Failed: Http error code" + conn.getResponseCode());
             }
 
             BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -41,38 +37,29 @@ public class LoginAPI {
             while ((output = br.readLine()) != null) {
                 response.append(output);
             }
-            conn.disconnect();
-            br.close();
 
-            User authUser = gson.fromJson(response.toString(), User.class);
-            email = authUser.getEmail();
-            return authUser;
+            Gson gson = FxGson.coreBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+            List<Task> tasks = gson.fromJson(response.toString(), new TypeToken<List<Task>>(){}.getType());
 
+            return tasks;
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 
-    public static void deauthenticate() {
-        if (email == null) {
-            return;
-        }
-
-        User user = new User();
-        user.setEmail(email);
-
+    public static void advanceTask(int taskId) {
         try {
-            String endpoint = baseUrl + "/deauth";
+            String endpoint = baseUrl + "/advance/" + taskId;
             HttpURLConnection conn = (HttpURLConnection) new URL(endpoint).openConnection();
             conn.setDoOutput(true);
             conn.setRequestMethod("POST");
             conn.setRequestProperty("content-Type", "application/json");
 
-            Gson gson = FxGson.coreBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-            String body = gson.toJson(user);
+            String body = "";
             OutputStream os = conn.getOutputStream();
             os.write(body.getBytes());
             os.flush();

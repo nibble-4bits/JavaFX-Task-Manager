@@ -26,6 +26,7 @@
                     <columns>
                       <TableColumn fx:id="colTitle" minWidth="118.0" prefWidth="118.0" text="Title" />
                       <TableColumn fx:id="colStatus" minWidth="118.0" prefWidth="118.0" text="Status" />
+                        <TableColumn fx:id="colId" maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
                     </columns>
                   </TableView>
                   <Label text="Filter by" GridPane.halignment="CENTER" GridPane.rowIndex="1">

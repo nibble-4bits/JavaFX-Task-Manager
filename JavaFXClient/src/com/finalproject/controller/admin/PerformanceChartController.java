@@ -1,5 +1,6 @@
 package com.finalproject.controller.admin;
 
+import com.finalproject.api.admin.AdminAPI;
 import com.finalproject.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,15 +18,16 @@ public class PerformanceChartController {
 
     @FXML
     private void initialize() {
+        Integer[] count = AdminAPI.getUserTasksByStatus(employee.getId());
         ObservableList<String> taskStatuses = FXCollections.observableArrayList("Pending", "WIP", "Finished");
 
         barChart.setTitle(employee.getName() + " " + employee.getLastName() + "'s performance");
         xAxis.setCategories(taskStatuses);
 
         XYChart.Series<String, Integer> series = new XYChart.Series<>();
-        /*for (int i = 0; i < months.length - 1; i++) {
-            series.getData().add(new XYChart.Data<>(months[i], birthdayCount[i]));
-        }*/
+        for (int i = 0; i < count.length; i++) {
+            series.getData().add(new XYChart.Data<>(taskStatuses.get(i), count[i]));
+        }
         barChart.getData().add(series);
     }
 }

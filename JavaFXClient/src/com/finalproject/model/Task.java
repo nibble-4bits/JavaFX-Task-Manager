@@ -9,72 +9,63 @@ public class Task {
     public static final int WIP = 1; // work in progress
     public static final int FINISHED = 2;
 
-    private SimpleIntegerProperty Id;
-    private SimpleObjectProperty<User> User;
-    private SimpleStringProperty Title;
-    private SimpleStringProperty Description;
-    private SimpleIntegerProperty Status;
+    private SimpleIntegerProperty id;
+    private SimpleStringProperty title;
+    private SimpleStringProperty description;
+    private SimpleIntegerProperty status;
 
     public Task() {
+        id = new SimpleIntegerProperty();
+        title = new SimpleStringProperty();
+        description = new SimpleStringProperty();
+        status = new SimpleIntegerProperty();
     }
 
     public int getId() {
-        return Id.get();
+        return id.get();
     }
 
     public SimpleIntegerProperty idProperty() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        this.Id.set(id);
-    }
-
-    public User getUser() {
-        return User.get();
-    }
-
-    public SimpleObjectProperty<User> userProperty() {
-        return User;
-    }
-
-    public void setUser(com.finalproject.model.User user) {
-        this.User.set(user);
+        this.id.set(id);
     }
 
     public String getTitle() {
-        return Title.get();
+        return title.get();
     }
 
     public SimpleStringProperty titleProperty() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        this.Title.set(title);
+        this.title.set(title);
     }
 
     public String getDescription() {
-        return Description.get();
+        return description.get();
     }
 
     public SimpleStringProperty descriptionProperty() {
-        return Description;
+        return description;
     }
 
     public void setDescription(String description) {
-        this.Description.set(description);
+        this.description.set(description);
     }
 
     public int getStatus() {
-        return Status.get();
+        return status.get();
     }
 
     public SimpleIntegerProperty statusProperty() {
-        return Status;
+        return status;
     }
 
     public void setStatus(int status) {
-        this.Status.set(status);
+        this.status.set(status);
     }
 }

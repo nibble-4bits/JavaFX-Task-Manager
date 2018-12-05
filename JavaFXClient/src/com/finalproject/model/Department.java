@@ -7,35 +7,35 @@ import javafx.beans.property.StringProperty;
 
 public class Department {
 
-    private SimpleIntegerProperty Id;
-    private SimpleStringProperty Name;
+    private SimpleIntegerProperty id;
+    private SimpleStringProperty name;
 
     public Department() {
-        this.Id = new SimpleIntegerProperty();
-        this.Name = new SimpleStringProperty();
+        this.id = new SimpleIntegerProperty();
+        this.name = new SimpleStringProperty();
     }
 
     public int getId() {
-        return Id.get();
+        return id.get();
     }
 
     public IntegerProperty idProperty() {
-        return Id;
+        return id;
     }
 
     public void setId(int id) {
-        this.Id.set(id);
+        this.id.set(id);
     }
 
     public String getName() {
-        return Name.get();
+        return name.get();
     }
 
     public StringProperty nameProperty() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        this.Name.set(name);
+        this.name.set(name);
     }
 }

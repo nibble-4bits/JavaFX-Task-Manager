@@ -29,13 +29,23 @@ public class LoginController {
 
             User authUser = LoginAPI.authenticate(tmp);
 
-            if (authUser.getEmail() != null) {
-                if (authUser.getEmail().equals("nonexistent")) {
-                    GUIUtils.showAlert(Alert.AlertType.ERROR, "An error has occurred", "User not found", "There is no user that uses the email you provided");
-                }
-                else if (authUser.getEmail().equals("passmismatch")) {
-                    GUIUtils.showAlert(Alert.AlertType.ERROR, "An error has occurred", "Password mismatch", "The password you provided does not match the saved password");
-                }
+            if (authUser.getEmail().equals("alreadylogged")) {
+                GUIUtils.showAlert(Alert.AlertType.WARNING,
+                        "Session active",
+                        "Another user has already logged in",
+                        "An email has been sent to the provided email address, you have 1 minute to enter it to be able to log in");
+            }
+            else if (authUser.getEmail().equals("nonexistent")) {
+                GUIUtils.showAlert(Alert.AlertType.ERROR,
+                        "An error has occurred",
+                        "User not found",
+                        "There is no user that uses the email you provided");
+            }
+            else if (authUser.getEmail().equals("passmismatch")) {
+                GUIUtils.showAlert(Alert.AlertType.ERROR,
+                        "An error has occurred",
+                        "Password mismatch",
+                        "The password you provided does not match the saved password");
             }
             else { // Depending on the user type, it loads either the AdminIndex or the EmployeeIndex
                 if (authUser.getType() == User.ADMIN) {

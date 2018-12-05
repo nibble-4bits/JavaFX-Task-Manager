@@ -1,11 +1,13 @@
 package com.finalproject.controller.admin;
 
 import com.finalproject.MainController;
+import com.finalproject.api.admin.AdminAPI;
+import com.finalproject.api.login.LoginAPI;
+import com.finalproject.factory.Factory;
 import com.finalproject.model.User;
 import com.finalproject.util.GUIUtils;
 import com.finalproject.util.SceneLoader;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,8 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class EmployeesTabController {
 
@@ -24,7 +24,7 @@ public class EmployeesTabController {
     private static Stage stageEmployeeDetails;
     private static Stage stageAssignTask;
     private static Stage performanceChart;
-    private FilteredList<User> fl;
+    private FilteredList<User> filteredList;
 
     @FXML private TableView tblEmployees;
     @FXML private TableColumn<User, Integer> colId;
@@ -123,17 +123,31 @@ public class EmployeesTabController {
     }
 
     @FXML
+    private void onClickLogout(ActionEvent event) {
+        MainController mainController = (MainController) Factory.getInstance("MainController");
+        LoginAPI.deauthenticate();
+        try {
+            mainController.changePrimaryStageScene("Login");
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
     private void initialize() {
         this.primaryStage = MainController.getPrimaryStage();
 
         initializeChoiceBox();
         initializeTableColumns();
         addFilterEvent();
-
-        fl = new FilteredList<>(loadPersons());
-
-        tblEmployees.setItems(fl);
+        loadTable();
         GUIUtils.autoResizeColumns(tblEmployees);
+    }
+
+    public void loadTable() {
+        filteredList = new FilteredList<>(FXCollections.observableArrayList(AdminAPI.getAllEmployees()));
+        tblEmployees.setItems(filteredList);
     }
 
     private void initializeTableColumns() {
@@ -157,7 +171,7 @@ public class EmployeesTabController {
 
     private void addFilterEvent() {
         txtFilterTerm.textProperty().addListener((obs, oldText, newText) -> {
-            fl.setPredicate(user -> {
+            filteredList.setPredicate(user -> {
                 if (newText == null || newText.isEmpty()) {
                     return true;
                 }
@@ -172,27 +186,6 @@ public class EmployeesTabController {
                 return false;
             });
         });
-    }
-
-    private ObservableList<User> loadPersons() {
-        ArrayList<User> list = new ArrayList<>();
-
-        for (int i = 1; i <= 5; i++) {
-            User user = new User();
-            user.setId(i);
-            user.setDepartment("Department " + i);
-            user.setEmail("thisIsEmail" + i + "@gmail.com");
-            user.setDateOfBirth(LocalDate.of(1998, 4, 3));
-            user.setHireDate(LocalDate.of(1998, 4, 3));
-            user.setLastName("Fischer " + i);
-            user.setName("Robert James " + i);
-            user.setPassword("thisIsMyPassword" + i);
-            user.setSecurityAnswer("Security answers " + i);
-            user.setSecurityQuestion("Security question " + i);
-            list.add(user);
-        }
-
-        return FXCollections.observableArrayList(list);
     }
 
     private void showEmployeeDetails(String initiator) throws Exception {
@@ -210,7 +203,11 @@ public class EmployeesTabController {
         }
 
         stageEmployeeDetails.setScene(new Scene(root));
-        stageEmployeeDetails.show();
+        stageEmployeeDetails.showAndWait();
+
+
+        loadTable();
+        GUIUtils.autoResizeColumns(tblEmployees);
     }
 
     public void closeEmployeeDetails() {
@@ -227,7 +224,7 @@ public class EmployeesTabController {
         stageAssignTask.setResizable(false);
         stageAssignTask.setTitle(SceneLoader.getTitle("AssignTask"));
         stageAssignTask.setScene(new Scene(root));
-        stageAssignTask.show();
+        stageAssignTask.showAndWait();
     }
 
     public void closeAssignTask() {
@@ -244,6 +241,6 @@ public class EmployeesTabController {
         performanceChart.setResizable(false);
         performanceChart.setTitle(SceneLoader.getTitle("PerformanceChart"));
         performanceChart.setScene(new Scene(root));
-        performanceChart.show();
+        performanceChart.showAndWait();
     }
 }
