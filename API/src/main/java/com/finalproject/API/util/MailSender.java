@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Properties;
 
 @Service
-public class Email {
+public class MailSender {
 
     public void sendMail(String to, String subject, String messageText) {
         try {
