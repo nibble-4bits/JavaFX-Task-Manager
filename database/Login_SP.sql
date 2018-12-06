@@ -27,4 +27,20 @@ proc:BEGIN
 END//
 DELIMITER ;
 
-CALL authenticateUser('jacklondon@hotmail.com', 'mypass');
+DELIMITER //
+CREATE PROCEDURE getSecurityFields(IN p_email VARCHAR(255))
+BEGIN
+	SELECT `SecurityQuestion`, `SecurityAnswer`
+    FROM `user`
+    WHERE `Email` LIKE p_email;
+END//
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE getPasswordByEmail(IN p_email VARCHAR(255))
+BEGIN
+	SELECT `Password`
+    FROM `user`
+    WHERE `Email` LIKE p_email;
+END//
+DELIMITER ;
